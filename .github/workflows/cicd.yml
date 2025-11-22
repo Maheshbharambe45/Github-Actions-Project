@@ -42,7 +42,8 @@ jobs:
 
       - name: Gitleaks Installation
         run: |
-          sudo apt install gitleaks -y
+         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+         brew install gitleaks
   
       - name: Gitleaks CodeScan
         run: |
