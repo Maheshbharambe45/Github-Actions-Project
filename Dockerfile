@@ -5,7 +5,7 @@ EXPOSE 8080
 ENV APP_HOME /usr/src/app
 WORKDIR $APP_HOME
 
-# Copy the built JAR
+# Copy the built JAR from target folder
 COPY target/*.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
