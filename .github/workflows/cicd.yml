@@ -40,11 +40,12 @@ jobs:
         run: |
           trivy fs --format table -o fs-report.json .
 
-      - name: Gitleaks Installation
+      - name: Install Gitleaks via Homebrew
         run: |
-         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-         brew install gitleaks
-  
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install gitleaks
+
       - name: Gitleaks CodeScan
         run: |
           gitleaks detect source . -r gitleaks-report.json -f json
