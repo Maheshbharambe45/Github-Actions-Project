@@ -40,14 +40,18 @@ jobs:
         run: |
           trivy fs --format table -o fs-report.json .
 
-      - name: Install Gitleaks 
+      - name: Install Gitleaks
         run: |
-          wget https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_amd64.deb
-          sudo dpkg -i gitleaks_amd64.deb
+          TAG=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep tag_name | cut -d '"' -f 4)
+          wget https://github.com/gitleaks/gitleaks/releases/download/$TAG/gitleaks_linux_x64.tar.gz
+          tar -xzf gitleaks_linux_x64.tar.gz
+          sudo mv gitleaks /usr/local/bin/gitleaks
+          sudo chmod +x /usr/local/bin/gitleaks
       
       - name: Run Gitleaks
         run: |
           gitleaks detect -s . -r gitleaks-report.json -f json
+
 
 
       
