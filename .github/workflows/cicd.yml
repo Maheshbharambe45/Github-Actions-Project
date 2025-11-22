@@ -74,8 +74,8 @@ jobs:
 
 
   bulid_sonar_scan_project:
-    runs-on: test
-    needs: Security-checks  
+    runs-on: self-hosted
+    needs: test
     steps:
     - uses: actions/checkout@v4
     
