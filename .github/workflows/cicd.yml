@@ -102,7 +102,11 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-    
+
+      #installing jq if not present    
+    - name: Install jq
+      run: sudo apt-get update && sudo apt-get install -y jq
+
     - name: SonarQube Quality Gate check
       id: sonarqube-quality-gate-check
       uses: sonarsource/sonarqube-quality-gate-action@master
