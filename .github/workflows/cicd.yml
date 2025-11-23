@@ -142,20 +142,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
   
-      # Set KUBECONFIG from GitHub secret
+   
       - name: Configure KUBECONFIG
-        run: |
-          mkdir -p $HOME/.kube
-          cp /home/ubuntu/.kube/config $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-
+        run: echo "KUBECONFIG=/home/ubuntu/.kube/config" >> $GITHUB_ENV
   
-      # Verify kubectl can connect
       - name: Check cluster nodes
         run: kubectl get nodes
-  
-      # Apply Kubernetes manifests
+
       - name: Deploy application
         run: |
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
+
