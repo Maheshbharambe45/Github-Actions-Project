@@ -142,13 +142,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
   
-   
+      # Write KUBECONFIG secret to a file
       - name: Configure KUBECONFIG
-        run: echo "KUBECONFIG=/home/ubuntu/.kube/config" >> $GITHUB_ENV
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
   
+      # Verify kubectl can connect
       - name: Check cluster nodes
         run: kubectl get nodes
-
+  
+      # Deploy application
       - name: Deploy application
         run: |
           kubectl apply -f deployment.yaml
