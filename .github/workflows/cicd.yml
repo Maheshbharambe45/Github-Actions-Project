@@ -146,8 +146,9 @@ jobs:
       - name: Configure KUBECONFIG
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          cp /home/ubuntu/.kube/config $HOME/.kube/config
           chmod 600 $HOME/.kube/config
+
   
       # Verify kubectl can connect
       - name: Check cluster nodes
